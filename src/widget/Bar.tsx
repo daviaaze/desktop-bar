@@ -165,18 +165,43 @@ function Wireless() {
 }
 
 function AudioOutput() {
-  const { defaultSpeaker: speaker } = AstalWp.get_default()!;
+  const {
+    defaultSpeaker: speaker,
+    defaultMicrophone: microphone,
+    devices,
+    audio,
+  } = AstalWp.get_default()!;
 
   return (
     <menubutton>
-      <image iconName={bind(speaker, "volumeIcon")} />
+      <box spacing={4}>
+        <image iconName={bind(speaker, "volumeIcon")} />
+        <image iconName={bind(microphone, "volumeIcon")} />
+      </box>
       <popover>
-        <box>
+        <box orientation={Gtk.Orientation.VERTICAL}>
+          <label label="Speaker" />
           <slider
             widthRequest={260}
             $changeValue={({ value }) => speaker.set_volume(value)}
             value={bind(speaker, "volume")}
           />
+          <label label="Microphone" />
+          <slider
+            widthRequest={240}
+            $changeValue={({ value }) => microphone.set_volume(value)}
+            value={bind(microphone, "volume")}
+          />
+          <For each={bind(audio, "devices")}>
+            {(device) => (
+              <box>
+                <label label={device.description} />
+                <For each={bind(device, "profiles")}>
+                  {(profile) => <label label={profile.description} />}
+                </For>
+              </box>
+            )}
+          </For>
         </box>
       </popover>
     </menubutton>
@@ -187,10 +212,11 @@ function Battery() {
   const battery = AstalBattery.get_default();
   const powerprofiles = AstalPowerProfiles.get_default();
 
-  console.log(battery);
   const percent = bind(battery, "percentage").as(
     (p) => `${Math.floor(p * 100)}%`
   );
+
+  const activeProfile = bind(powerprofiles, "active_profile");
 
   const setProfile = (profile: string) => {
     powerprofiles.set_active_profile(profile);
@@ -205,7 +231,12 @@ function Battery() {
       <popover>
         <box orientation={Gtk.Orientation.VERTICAL}>
           {powerprofiles.get_profiles().map(({ profile }) => (
-            <button $clicked={() => setProfile(profile)}>
+            <button
+              $clicked={() => setProfile(profile)}
+              cssClasses={activeProfile.as((p) => [
+                p === profile ? "active" : "",
+              ])}
+            >
               <label label={profile} xalign={0} />
             </button>
           ))}
@@ -245,7 +276,6 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       <centerbox>
         <box _type="start">
           <Clock />
-          <Mpris />
         </box>
         <box _type="end">
           <Tray />

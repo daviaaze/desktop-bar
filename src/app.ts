@@ -4,7 +4,6 @@ import Bar from "./widget/Bar"
 
 app.start({
     css: style,
-    gtkTheme: "Adwaita",
     main() {
         app.get_monitors().map(Bar)
     },

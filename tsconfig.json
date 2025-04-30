@@ -10,5 +10,7 @@
         // "allowJs": true,
         "jsx": "react-jsx",
         "jsxImportSource": "ags/gtk4",
+        "baseUrl": "./src/",
+        "typeRoots": ["./src/types"]
     }
 }
