@@ -1,6 +1,6 @@
 import app from "ags/gtk4/app";
 import Astal from "gi://Astal?version=4.0";
-import { Clock, Mpris, Tray, Wireless, AudioOutput, Battery, Workspaces } from './widget'
+import { Clock, Mpris, Tray, Wireless, AudioOutput, Battery, Workspaces, SystemUsage } from './widget'
 import AstalHyprland from "gi://AstalHyprland?version=0.1";
 
 
@@ -24,6 +24,7 @@ function Bar(monitor: AstalHyprland.Monitor) {
                 </box>
                 <box _type="end">
                     <Tray />
+                    <SystemUsage />
                     <Wireless />
                     <AudioOutput />
                     <Battery />

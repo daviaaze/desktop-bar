@@ -5,3 +5,4 @@ export { Wireless } from "./Wireless";
 export { Tray } from "./Tray";
 export { Mpris } from "./Mpris";
 export { Workspaces } from './workspaces';
+export { SystemUsage } from './SystemUsage'
