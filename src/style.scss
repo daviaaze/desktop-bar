@@ -27,4 +27,27 @@ window#bar {
   .active {
     color: red;
   }
+
+  .ws-button {
+    padding: 0px 2px;
+    min-width: 30px;
+    min-height: 30px;
+    -gtk-icon-size: 24px;
+
+    &.vert {
+      padding: 2px 0px;
+    }
+
+    .unfocused {
+      filter: brightness(150%) saturate(0%);
+    }
+
+    &.special {
+      background: oklab(from var(--success-bg-color) l a b / 0.25);
+
+      &.active {
+        background: var(--success-bg-color);
+      }
+    }
+  }
 }
