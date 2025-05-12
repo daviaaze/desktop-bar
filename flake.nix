@@ -96,7 +96,6 @@
           pkgs.nixfmt-rfc-style
           pkgs.adwaita-icon-theme
           pkgs.watchexec
-          pkgs.eslint
         ] ++ extraPackages;
       };
     };

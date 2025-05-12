@@ -1,6 +1,7 @@
 import { bind } from "ags/state"
 import Wireplumber from "gi://AstalWp"
 import Brightness from "../lib/brightness"
+import { Gtk } from "ags/gtk4"
 
 const brightness = Brightness.get_default()
 const audio = Wireplumber.get_default()!.audio
@@ -13,25 +14,19 @@ export enum SliderType {
 export const Slider = ({ type }: { type: SliderType }) =>
   <box
     cssClasses={["slider"]}
-    spacing={4}>
+    spacing={4}
+    valign={Gtk.Align.CENTER}
+    halign={Gtk.Align.CENTER}>
     <image iconName={type === SliderType.AUDIO ?
       bind(audio.defaultSpeaker, "volume_icon") :
       "display-brightness-symbolic"} />
-    <slider
+    <Gtk.ProgressBar
       hexpand
-      min={0}
-      max={100}
-      $={self => type === SliderType.AUDIO ?
-        self.set_value(audio.defaultSpeaker.volume) :
-        self.set_value(brightness.screen * 100)}
-      $changeValue={({ value }) =>
-        type === SliderType.AUDIO ?
-          audio.defaultSpeaker.set_volume(value / 100) :
-          brightness.set({ screen: value / 100 })
-      }
-      value={type === SliderType.AUDIO ?
-        bind(audio.defaultSpeaker, "volume").as(v => v * 100) :
-        bind(brightness, "screen").as(v => v * 100)} />
+      valign={Gtk.Align.CENTER}
+      halign={Gtk.Align.CENTER}
+      fraction={type === SliderType.AUDIO ?
+        bind(audio.defaultSpeaker, "volume").as(v => v) :
+        bind(brightness, "screen").as(v => v)} />
     <label
       cssClasses={["heading"]}
       label={type === SliderType.AUDIO ?
