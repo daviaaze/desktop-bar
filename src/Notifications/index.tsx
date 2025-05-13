@@ -16,15 +16,14 @@ const visible = derive(bind(notifs), bind(notifd, "dontDisturb"),
 
 const Notifications =  () => <window
   name={"notifications"}
-  margin={12}
-  cssClasses={["notif-popup"]}
+  cssClasses={["notif-popup", "margin-12"]}
   visible={bind(visible)}
   anchor={Astal.WindowAnchor.RIGHT | Astal.WindowAnchor.TOP | Astal.WindowAnchor.BOTTOM}
   monitor={bind(hyprland, "focusedMonitor").as(m => m.id)}
   application={App}>
   <box
     orientation={Gtk.Orientation.VERTICAL}
-    spacing={4}
+    cssClasses={["gap-4"]}
     $={() => notifd.connect("notified", (self, id) => {
       timeout(5000, () => notifs.set(notifs.get().filter(n => id !== n.id)))
       notifs.set(notifs.get().concat(notifd.get_notification(id)))

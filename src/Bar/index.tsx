@@ -16,13 +16,13 @@ function Bar(monitor: AstalHyprland.Monitor) {
             anchor={TOP | LEFT | RIGHT}
             application={app}
         >
-            <centerbox>
-                <box _type="start">
+            <centerbox cssClasses={["bar-centerbox"]}>
+                <box _type="start" cssClasses={["spacing-4"]}>
                     <Clock />
                     <Mpris />
                     <Workspaces monitor={monitor} />
                 </box>
-                <box _type="end">
+                <box _type="end" cssClasses={["spacing-4"]}>
                     <Tray />
                     <SystemUsage />
                     <Wireless />

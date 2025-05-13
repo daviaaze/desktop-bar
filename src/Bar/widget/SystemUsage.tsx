@@ -31,7 +31,7 @@ const disk = new Poll<number>(0, INTERVAL, () => {
 })
 
 const temp = new Poll<number>(0, INTERVAL,
-    `cat /sys/class/hwmon/hwmon2/temp1_input`,
+    `cat /sys/class/hwmon/hwmon4/temp1_input`,
     out => parseInt(out) / 100000)
 
 
@@ -46,7 +46,7 @@ const Indicator = ({ value, label, unit }:
             valign={Gtk.Align.CENTER}
             halign={Gtk.Align.CENTER}
             spacing={2}
-            css="padding: 2px 5px;"
+            cssClasses={["sys-usage-indicator"]}
         >
             <label
                 label={label}

@@ -23,7 +23,7 @@ export function Mpris() {
           <For each={bind(mpris, "players")}>
             {(player) => (
               <box spacing={4} widthRequest={200}>
-                <box overflow={Gtk.Overflow.HIDDEN} css="border-radius: 8px;">
+                <box overflow={Gtk.Overflow.HIDDEN} cssClasses={["media-cover"]}>
                   <image pixelSize={64} file={bind(player, "coverArt")} />
                 </box>
                 <box

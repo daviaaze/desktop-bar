@@ -39,10 +39,11 @@ export const Workspaces = ({ monitor }:
         return <Gtk.ToggleButton
           active={bind(hyprland, "focusedWorkspace").as(focused => focused === ws)}
           cursor={Gdk.Cursor.new_from_name("pointer", null)}
-          cssClasses={["pill", "ws-button",
-            isFocused ? "active" : "",
+          cssClasses={isFocused.as(focused => [
+            "pill", "ws-button",
+            focused ? "active" : "",
             special ? "special" : "",
-            ]}
+          ])}
           $clicked={() => {
             if (special)
               hyprland.message_async(
