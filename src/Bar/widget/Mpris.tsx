@@ -8,6 +8,10 @@ export function Mpris() {
   const mpris = AstalMpris.get_default();
   const apps = new AstalApps.Apps();
 
+  if (bind(mpris, "players").as((players) => players.length === 0)) {
+    return <></>;
+  }
+
   return (
     <menubutton>
       <box>

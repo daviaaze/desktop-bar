@@ -6,7 +6,7 @@ import { timeout } from "ags/time"
 import { Astal, Gtk } from "ags/gtk4"
 import { bind, Binding } from "ags/state"
 import Brightness from "../lib/brightness"
-import { Slider, SliderType } from "../components/Slider"
+import { Slider, SliderType } from "./Slider"
 
 const brightness = Brightness.get_default()
 const audio = Wireplumber.get_default()!.audio

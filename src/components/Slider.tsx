@@ -1,41 +1,30 @@
-import { bind } from "ags/state"
-import Wireplumber from "gi://AstalWp"
-import Brightness from "../lib/brightness"
-import { Gtk } from "ags/gtk4"
+import { Binding } from "ags/state"
 
-const brightness = Brightness.get_default()
-const audio = Wireplumber.get_default()!.audio
-
-export enum SliderType {
-  AUDIO,
-  BRIGHTNESS,
+type SliderProps = {
+    icon: string,
+    min: number,
+    max: number,
+    value: Binding<number>,
+    setValue: (value: number) => void,
 }
-
-export const Slider = ({ type }: { type: SliderType }) =>
-  <box
-    cssClasses={["slider"]}
-    spacing={4}
-    valign={Gtk.Align.CENTER}
-    halign={Gtk.Align.CENTER}>
-    <image iconName={type === SliderType.AUDIO ?
-      bind(audio.defaultSpeaker, "volume_icon") :
-      "display-brightness-symbolic"} />
-    <Gtk.ProgressBar
-      hexpand
-      valign={Gtk.Align.CENTER}
-      halign={Gtk.Align.CENTER}
-      fraction={type === SliderType.AUDIO ?
-        bind(audio.defaultSpeaker, "volume").as(v => v) :
-        bind(brightness, "screen").as(v => v)} />
-    <label
-      cssClasses={["heading"]}
-      label={type === SliderType.AUDIO ?
-        bind(audio.defaultSpeaker, "volume").as(v =>
-          Math.floor(v * 100)
-            .toString()
-            .concat("%")) :
-        bind(brightness, "screen").as(v =>
-          Math.floor(v * 100)
+export const Slider = (props: SliderProps) =>
+    <box
+      cssClasses={["slider"]}
+      spacing={4}>
+      <image iconName={props.icon} />
+      <slider
+        hexpand
+        min={props.min}
+        max={props.max}
+        $={self => self.set_value(props.value.get())}
+        $changeValue={({ value }) =>
+          props.setValue(value)
+        }
+        value={props.value} />
+      <label
+        cssClasses={["heading"]}
+        label={props.value.as(v =>
+          Math.floor(v)
             .toString()
             .concat("%"))} />
-  </box>
+    </box>

@@ -4,20 +4,20 @@ import style from "./style.scss";
 import Bar from "./Bar";
 import osd from "./Osd";
 // import applauncher from "./widget/applauncher";
-// import quicksettings from "./widget/quicksettings";
+import QuickSettings from "./QuickSettings";
 import Notifications from "./Notifications";
-// import { State } from "ags/state";
+import { State } from "ags/state";
 
-// const verticalBar = new State<boolean>(true)
-// const visible = new State<{ applauncher: boolean, quicksettings: boolean }>(
-//   { applauncher: false, quicksettings: false })
+const verticalBar = new State<boolean>(true)
+const visible = new State<{ applauncher: boolean, quicksettings: boolean }>(
+  { applauncher: false, quicksettings: false })
 
 App.start({
   css: style,
   instanceName: "dvision-dshell",
   main() {
     Notifications();
-    // quicksettings(verticalBar, visible);
+    QuickSettings(verticalBar, visible);
     // applauncher(verticalBar, visible);
     osd();
     Bar();

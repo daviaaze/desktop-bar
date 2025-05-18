@@ -12,7 +12,7 @@
       flake = false;
     };
     ags = {
-      url = "github:aylur/ags/v3";
+      url = "github:daviaaze/ags/v3";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.astal.follows = "astal";
       inputs.gjsx.follows = "gjsx";

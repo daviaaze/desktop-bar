@@ -18,7 +18,7 @@ const Notifications =  () => <window
   name={"notifications"}
   cssClasses={["notif-popup", "margin-12"]}
   visible={bind(visible)}
-  anchor={Astal.WindowAnchor.RIGHT | Astal.WindowAnchor.TOP | Astal.WindowAnchor.BOTTOM}
+  anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.LEFT | Astal.WindowAnchor.RIGHT}
   monitor={bind(hyprland, "focusedMonitor").as(m => m.id)}
   application={App}>
   <box
